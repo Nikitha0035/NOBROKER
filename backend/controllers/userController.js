@@ -179,8 +179,24 @@ const sendWelcomeEmail = async (user) => {
     const mailOptions = {
       from: `"NoBroker Team" <${process.env.EMAIL_USER}>`,
       to: user.email,
-      subject: "Welcome to NoBroker",
-      html: `<h3>Hello ${user.name},</h3><p>Welcome to NoBroker!</p>`,
+      subject: "Welcome to NoBroker – India's Largest Real Estate Platform",
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
+          <h2 style="color:#16a085;">Welcome to NoBroker!</h2>
+          <p>
+            India's largest real estate website that helps you find, rent, and sell homes without paying brokerage.
+          </p>
+          <p>Your account has been created with the following details:</p>
+          <ul style="line-height:1.8; padding-left: 20px;">
+            <li><strong>Name:</strong> ${user.name}</li>
+            <li><strong>Contact No:</strong> +91${user.phone}</li>
+            <li><strong>Email:</strong> ${user.email}</li>
+          </ul>
+          <br/>
+          <p>Thanks,</p>
+          <p><strong>The NoBroker Team</strong></p>
+        </div>
+      `,
     };
 
     await transporter.sendMail(mailOptions);
