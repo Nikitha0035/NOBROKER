@@ -1,6 +1,85 @@
 import User from "../models/User.js";
 import nodemailer from "nodemailer";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadDir = path.join(process.cwd(), "uploads");
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, `${req.user.phone}_${Date.now()}${ext}`);
+  },
+});
+
+const upload = multer({ storage });
+
+export const uploadProfilePhoto = [
+  upload.single("photo"),
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+      let phone = req.user.phone?.toString().replace(/\s+/g, "").replace(/^(\+91|91)/, "");
+      const user = await User.findOne({
+        $or: [{ phone }, { phone: `+91${phone}` }, { phone: `91${phone}` }],
+      });
+
+      if (!user) return res.status(404).json({ error: "User not found" });
+
+      const imagePath = `/uploads/${req.file.filename}`;
+      user.photo = imagePath;
+      await user.save();
+
+      res.status(200).json({
+        success: true,
+        message: "Profile photo uploaded successfully",
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          photo: user.photo,
+        },
+      });
+    } catch (error) {
+      console.error("Upload error:", error);
+      res.status(500).json({ error: "Server error during upload" });
+    }
+  },
+];
+export const removeProfilePhoto = async (req, res) => {
+  try {
+    let phone = req.user.phone?.toString().replace(/\s+/g, "").replace(/^(\+91|91)/, "");
+    const user = await User.findOne({
+      $or: [{ phone }, { phone: `+91${phone}` }, { phone: `91${phone}` }],
+    });
+
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    if (user.photo) {
+      const filePath = path.join(process.cwd(), user.photo.replace(/^\//, ""));
+      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    }
+
+    user.photo = "";
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Profile photo removed successfully",
+      user,
+    });
+  } catch (error) {
+    console.error("Remove photo error:", error);
+    res.status(500).json({ error: "Server error during photo removal" });
+  }
+};
 
 export const saveUser = async (req, res) => {
   try {
@@ -22,6 +101,7 @@ export const saveUser = async (req, res) => {
         error: "User already exists. Please login instead.",
       });
     }
+
     const newUser = new User({ name, email, phone });
     await newUser.save();
 
@@ -40,55 +120,45 @@ export const saveUser = async (req, res) => {
 export const checkUserExists = async (req, res) => {
   try {
     let phone = req.user.phone;
-    if (!phone) {
-      return res.status(400).json({ error: "Phone not found in token" });
-    }
+    if (!phone) return res.status(400).json({ error: "Phone not found in token" });
 
-    // 🔹 Normalize phone number to 10 digits
     phone = phone.toString().trim().replace(/\s+/g, "").replace(/^(\+91|91)/, "");
-
-    console.log("Token Phone:", req.user.phone);
-    console.log("Normalized Phone:", phone);
-
     const user = await User.findOne({
       $or: [{ phone }, { phone: `+91${phone}` }, { phone: `91${phone}` }],
     });
 
-    if (user) {
-      console.log("User found:", user.email || user.phone);
-      return res.status(200).json({ exists: true, user });
-    } else {
-      console.log("No user found for:", phone);
-      return res.status(200).json({ exists: false });
-    }
+    if (user) return res.status(200).json({ exists: true, user });
+    return res.status(200).json({ exists: false });
   } catch (err) {
     console.error("Check-user error:", err);
     res.status(500).json({ error: "Server error" });
   }
 };
-
 export const loginUser = async (req, res) => {
   try {
     let phone = req.user.phone;
-    if (!phone) {
-      return res.status(400).json({ error: "Phone not found in token" });
-    }
+    if (!phone) return res.status(400).json({ error: "Phone not found in token" });
 
-    // Normalize phone
     phone = phone.toString().trim().replace(/\s+/g, "").replace(/^(\+91|91)/, "");
-
     const user = await User.findOne({
       $or: [{ phone }, { phone: `+91${phone}` }, { phone: `91${phone}` }],
     });
 
-    if (!user) {
-      return res.status(404).json({
-        error: "No account found with this number. Please sign up first.",
-      });
-    }
+    if (!user) return res.status(404).json({ error: "No account found with this number." });
 
-    console.log("Login successful for:", user.email || user.phone);
-    res.status(200).json({ message: "Login successful", user });
+    
+res.status(200).json({
+  message: "Login successful",
+  user: {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+    photo: user.photo,
+  },
+});
+
+
   } catch (err) {
     console.error("Login error:", err);
     res.status(500).json({ error: "Server error during login" });
@@ -109,24 +179,8 @@ const sendWelcomeEmail = async (user) => {
     const mailOptions = {
       from: `"NoBroker Team" <${process.env.EMAIL_USER}>`,
       to: user.email,
-      subject: "Welcome to NoBroker – India's Largest Real Estate Platform",
-      html: `
-        <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
-          <h2 style="color:#16a085;">Welcome to NoBroker!</h2>
-          <p>
-            India's largest real estate website that helps you find, rent, and sell homes without paying brokerage.
-          </p>
-          <p>Your account has been created with the following details:</p>
-          <ul style="line-height:1.8; padding-left: 20px;">
-            <li><strong>Name:</strong> ${user.name}</li>
-            <li><strong>Contact No:</strong> +91${user.phone}</li>
-            <li><strong>Email:</strong> ${user.email}</li>
-          </ul>
-          <br/>
-          <p>Thanks,</p>
-          <p><strong>The NoBroker Team</strong></p>
-        </div>
-      `,
+      subject: "Welcome to NoBroker",
+      html: `<h3>Hello ${user.name},</h3><p>Welcome to NoBroker!</p>`,
     };
 
     await transporter.sendMail(mailOptions);

@@ -1,0 +1,139 @@
+.profile-page-container {
+  display: flex;
+  width: 100%;
+  min-height: 85vh;
+  margin-top: 80px;
+  background-color: #fafafa;
+}
+
+.profile-sidebar {
+  width: 250px;
+  background: #fff;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+}
+
+.profile-sidebar h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.profile-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-sidebar li {
+  padding: 10px 0;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.profile-sidebar li.active {
+  font-weight: 600;
+  color: #00796b;
+  border-left: 3px solid #00796b;
+  padding-left: 10px;
+}
+
+.profile-content {
+  flex: 1;
+  background: #fff;
+  padding: 30px;
+}
+
+.profile-content h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.profile-photo-upload {
+  margin-bottom: 25px;
+}
+
+.photo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-img-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  object-fit: cover;
+}
+
+.photo-box input {
+  font-size: 14px;
+}
+
+.photo-box button {
+  padding: 6px 12px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.photo-box button:hover {
+  background-color: #00695c;
+}
+
+.profile-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.profile-fields label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.profile-fields input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.save-btn {
+  margin-top: 15px;
+  padding: 8px 12px;
+  background-color: #ff5a5f;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #e14a4f;
+}
+.photo-box button {
+  background-color: #009587;
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.photo-box button:hover {
+  background-color: #007d73;
+}
+
+.photo-box button:nth-child(2) {
+  background-color: #e74c3c;
+}

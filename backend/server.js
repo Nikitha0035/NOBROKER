@@ -6,6 +6,9 @@ import otpRoutes from "./routes/otpRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import dotenv from "dotenv";
 import propertyRoutes from "./routes/PropertyRoutes.js";
+import path from "path";
+
+
 
 dotenv.config();
 
@@ -20,7 +23,7 @@ app.use("/api/otp", otpRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/properties", propertyRoutes);
 app.get("/", (req, res) => res.send(" Backend running"));
-
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.listen(process.env.PORT || 5000, () =>
   console.log(` Server running on port ${process.env.PORT || 5000}`)
 );

@@ -25,6 +25,7 @@ import ClickAndEarn from "./components/ClickAndEarn";
 import PayRent from "./components/PayRent";
 import Enquire from "./enquiry/Enquire";
 import MyProperties from "./components/MyProperties";
+import Profile from "./components/Profile";
 
 // import BusinessAssist from "./components/BusinessAssist";
 
@@ -101,6 +102,7 @@ function AppContent() {
         <Route path="/property-legal" element={<PropertyLegalService />} />
         <Route path="/nri-services" element={<NoBrokerForNRIs />} />
         <Route path="/my-properties" element={<MyProperties />} />
+<Route path="/profile" element={<Profile />} />
 
       </Routes>
       {/* <BusinessAssist /> */}

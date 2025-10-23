@@ -37,7 +37,65 @@ const [isAllDay, setIsAllDay] = useState(false);
   const dropdownRef = useRef(null);
 const [rent, setRent] = useState("");
 const [deposit, setDeposit] = useState("");
+const [errors, setErrors] = useState({});
+const validateStep = (step) => {
+  const newErrors = {};
 
+  // 🏠 STEP 0: Property Details
+  if (step === 0) {
+    const selects = document.querySelectorAll(".form-grid select");
+    const builtArea = document.querySelector(".area-box input[type='number']");
+    const labels = [
+      "Apartment Type",
+      "BHK Type",
+      "Floor",
+      "Total Floor",
+      "Property Age",
+      "Facing",
+    ];
+    selects.forEach((s, i) => {
+      if (s.value === "Select") newErrors[`step0_${labels[i]}`] = `${labels[i]} is required`;
+    });
+    if (!builtArea.value) newErrors.builtUpArea = "Built-up area is required";
+  }
+
+  // 📍 STEP 1: Locality
+  if (step === 1) {
+    if (!city) newErrors.city = "City is required";
+    if (!locality.trim()) newErrors.locality = "Locality is required";
+    if (!landmark.trim()) newErrors.landmark = "Landmark is required";
+  }
+
+  // 💰 STEP 2: Rental
+  if (step === 2) {
+    if (!rent) newErrors.rent = "Expected rent is required";
+    if (!deposit) newErrors.deposit = "Expected deposit is required";
+    
+  }
+
+  // 🛋 STEP 3: Amenities
+  else if (step === 3) {
+  if (bathrooms <= 0) newErrors.bathrooms = "Please select bathrooms count";
+  if (balcony <= 0) newErrors.balcony = "Please select balcony count";
+
+  ["pet", "gym", "nonVeg", "gated"].forEach((key) => {
+    if (toggles[key] === undefined)
+      newErrors[key] = `Please choose an option for ${key}`;
+  });
+}
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
+// ✅ Move to next step only if valid
+const handleNextStep = (step) => {
+  if (validateStep(step)) {
+    setCurrentStep(step + 1);
+  } else {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+};
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -126,7 +184,6 @@ const handleFinishPosting = async () => {
       isAllDay,
     };
 
-    // Send POST request to backend
     const response = await axios.post(
       "http://localhost:5000/api/properties",
       data,
@@ -233,83 +290,113 @@ const handleFinishPosting = async () => {
 
                   <form>
                     <div className="form-grid">
-                      <div className="form-group">
-                        <label>{isResale ? "Property Type*" : "Apartment Type*"}</label>
-                        <select>
-                          <option>Select</option>
-                          <option>Apartment</option>
-                          <option>Independent House</option>
-                          <option>Villa</option>
-                          <option>Studio</option>
-                        </select>
-                      </div>
+                     <div className="form-group">
+  <label>{isResale ? "Property Type*" : "Apartment Type*"}</label>
+  <select className={errors["step0_Apartment Type"] ? "error" : ""}>
+    <option>Select</option>
+    <option>Apartment</option>
+    <option>Independent House</option>
+    <option>Villa</option>
+    <option>Studio</option>
+  </select>
+  {errors["step0_Apartment Type"] && (
+    <small className="error-text">{errors["step0_Apartment Type"]}</small>
+  )}
+</div>
+
+
+<div className="form-group">
+  <label>BHK Type*</label>
+  <select className={errors["step0_BHK Type"] ? "error" : ""}>
+    <option>Select</option>
+    <option>1 BHK</option>
+    <option>2 BHK</option>
+    <option>3 BHK</option>
+    <option>4+ BHK</option>
+  </select>
+  {errors["step0_BHK Type"] && (
+    <small className="error-text">{errors["step0_BHK Type"]}</small>
+  )}
+</div>
+
+
+                    <div className="form-group">
+  <label>Floor*</label>
+  <select className={errors["step0_Floor"] ? "error" : ""}>
+    <option>Select</option>
+    <option>Ground</option>
+    <option>1</option>
+    <option>2</option>
+    <option>3+</option>
+  </select>
+  {errors["step0_Floor"] && (
+    <small className="error-text">{errors["step0_Floor"]}</small>
+  )}
+</div>
+
+
+                     <div className="form-group">
+  <label>Total Floor*</label>
+  <select className={errors["step0_Total Floor"] ? "error" : ""}>
+    <option>Select</option>
+    <option>1</option>
+    <option>2</option>
+    <option>3+</option>
+  </select>
+  {errors["step0_Total Floor"] && (
+    <small className="error-text">{errors["step0_Total Floor"]}</small>
+  )}
+</div>
+
+
+                     <div className="form-group">
+  <label>Property Age*</label>
+  <select className={errors["step0_Property Age"] ? "error" : ""}>
+    <option>Select</option>
+    <option>0-1 Years</option>
+    <option>1-5 Years</option>
+    <option>5-10 Years</option>
+    <option>10+ Years</option>
+  </select>
+  {errors["step0_Property Age"] && (
+    <small className="error-text">{errors["step0_Property Age"]}</small>
+  )}
+</div>
+
+
+                    <div className="form-group">
+  <label>Facing*</label>
+  <select className={errors["step0_Facing"] ? "error" : ""}>
+    <option>Select</option>
+    <option>North</option>
+    <option>South</option>
+    <option>East</option>
+    <option>West</option>
+  </select>
+  {errors["step0_Facing"] && (
+    <small className="error-text">{errors["step0_Facing"]}</small>
+  )}
+</div>
+
 
                       <div className="form-group">
-                        <label>BHK Type*</label>
-                        <select>
-                          <option>Select</option>
-                          <option>1 BHK</option>
-                          <option>2 BHK</option>
-                          <option>3 BHK</option>
-                          <option>4+ BHK</option>
-                        </select>
-                      </div>
+  <label>Built Up Area*</label>
+  <div className="area-box">
+    <input
+      type="number"
+      placeholder="Built-up Area"
+      className={errors.builtUpArea ? "error" : ""}
+    />
+    <span className="unit">Sq.ft</span>
+  </div>
+  {errors.builtUpArea && <small className="error-text">{errors.builtUpArea}</small>}
+</div>
 
-                      <div className="form-group">
-                        <label>Floor*</label>
-                        <select>
-                          <option>Select</option>
-                          <option>Ground</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3+</option>
-                        </select>
-                      </div>
-
-                      <div className="form-group">
-                        <label>Total Floor*</label>
-                        <select>
-                          <option>Select</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3+</option>
-                        </select>
-                      </div>
-
-                      <div className="form-group">
-                        <label>Property Age*</label>
-                        <select>
-                          <option>Select</option>
-                          <option>0-1 Years</option>
-                          <option>1-5 Years</option>
-                          <option>5-10 Years</option>
-                          <option>10+ Years</option>
-                        </select>
-                      </div>
-
-                      <div className="form-group">
-                        <label>Facing*</label>
-                        <select>
-                          <option>Select</option>
-                          <option>North</option>
-                          <option>South</option>
-                          <option>East</option>
-                          <option>West</option>
-                        </select>
-                      </div>
-
-                      <div className="form-group">
-                        <label>Built Up Area*</label>
-                        <div className="area-box">
-                          <input type="number" placeholder="Built-up Area" />
-                          <span className="unit">Sq.ft</span>
-                        </div>
-                      </div>
                     </div>
+<button type="button" className="save-btn" onClick={() => handleNextStep(0)}>
+  Save & Continue
+</button>
 
-                    <button type="button" className="save-btn" onClick={() => setCurrentStep(1)}>
-                      Save & Continue
-                    </button>
                   </form>
                 </>
               )}
@@ -371,25 +458,31 @@ const handleFinishPosting = async () => {
       </div>
 
       <div className="form-row">
-        <div className="form-group half">
-          <label>Locality *</label>
-          <input
-            type="text"
-            placeholder="Enter Locality"
-            value={locality}
-            onChange={(e) => setLocality(e.target.value)}
-          />
-        </div>
-        <div className="form-group half">
-          <label>Landmark / Street *</label>
-          <input
-            type="text"
-            placeholder="e.g. Near market or metro station"
-            value={landmark}
-            onChange={(e) => setLandmark(e.target.value)}
-          />
-        </div>
-      </div>
+  <div className="form-group half">
+    <label>Locality *</label>
+    <input
+  type="text"
+  placeholder="Enter Locality"
+  value={locality}
+  onChange={(e) => setLocality(e.target.value)}
+  className={errors.locality ? "error" : ""}
+/>
+{errors.locality && <small className="error-text">{errors.locality}</small>}
+    
+  </div>
+  <div className="form-group half">
+    <label>Landmark / Street *</label>
+   <input
+  type="text"
+  placeholder="e.g. Near market"
+  value={landmark}
+  onChange={(e) => setLandmark(e.target.value)}
+  className={errors.landmark ? "error" : ""}
+/>
+{errors.landmark && <small className="error-text">{errors.landmark}</small>}
+  </div>
+</div>
+
 
       {city && (
         <div className="map-section">
@@ -411,9 +504,10 @@ const handleFinishPosting = async () => {
         <button type="button" className="back-btn" onClick={() => setCurrentStep(0)}>
           Back
         </button>
-        <button type="button" className="save-btn" onClick={() => setCurrentStep(2)}>
-          Save & Continue
-        </button>
+        <button type="button" className="save-btn" onClick={() => handleNextStep(1)}>
+  Save & Continue
+</button>
+
       </div>
     </form>
   </>
@@ -439,21 +533,24 @@ const handleFinishPosting = async () => {
         <div className="form-group">
   <label>Expected Rent *</label>
   <input
-    type="number"
-    placeholder="Enter Amount"
-    value={rent}
-    onChange={(e) => setRent(e.target.value)}
-  />
+  type="number"
+  value={rent}
+  onChange={(e) => setRent(e.target.value)}
+  className={errors.rent ? "error" : ""}
+/>
+{errors.rent && <small className="error-text">{errors.rent}</small>}
 </div>
 
 <div className="form-group">
   <label>Expected Deposit *</label>
-  <input
-    type="number"
-    placeholder="Enter Amount"
-    value={deposit}
-    onChange={(e) => setDeposit(e.target.value)}
-  />
+ <input
+  type="number"
+  value={deposit}
+  onChange={(e) => setDeposit(e.target.value)}
+  className={errors.deposit ? "error" : ""}
+/>
+{errors.deposit && <small className="error-text">{errors.deposit}</small>}
+
 </div>
 
 
@@ -467,8 +564,9 @@ const handleFinishPosting = async () => {
         </div>
 
         <div className="form-group">
-          <label>Available From *</label>
+          <label>Available From </label>
           <input type="date" />
+          
         </div>
 
         <div className="form-group wide">
@@ -481,7 +579,7 @@ const handleFinishPosting = async () => {
         </div>
 
         <div className="form-group">
-          <label>Furnishing *</label>
+          <label>Furnishing </label>
           <select>
             <option>Select</option>
             <option>Furnished</option>
@@ -491,7 +589,7 @@ const handleFinishPosting = async () => {
         </div>
 
         <div className="form-group">
-          <label>Parking *</label>
+          <label>Parking </label>
           <select>
             <option>Select</option>
             <option>1</option>
@@ -512,9 +610,10 @@ const handleFinishPosting = async () => {
         <button type="button" className="back-btn" onClick={() => setCurrentStep(1)}>
           Back
         </button>
-        <button type="button" className="save-btn" onClick={() => setCurrentStep(3)}>
-          Save & Continue
-        </button>
+     <button type="button" className="save-btn" onClick={() => handleNextStep(2)}>
+  Save & Continue
+</button>
+
       </div>
     </form>
   </>
@@ -535,16 +634,43 @@ const handleFinishPosting = async () => {
             <span>{bathrooms}</span>
             <button onClick={() => setBathrooms(bathrooms + 1)}>+</button>
           </div>
+          {errors.bathrooms && <small className="error-text">{errors.bathrooms}</small>}
         </div>
 
-        <div className="form-group">
-          <label>Balcony*</label>
-          <div className="counter">
-            <button onClick={() => setBalcony(Math.max(0, balcony - 1))}>−</button>
-            <span>{balcony}</span>
-            <button onClick={() => setBalcony(balcony + 1)}>+</button>
-          </div>
-        </div>
+   <div className="form-group">
+  <label>Balcony*</label>
+
+  <div className={`counter ${errors.balcony ? "error" : ""}`}>
+    <button
+      type="button"
+      onClick={() => {
+        setBalcony(Math.max(0, balcony - 1));
+        if (balcony - 1 > 0)
+          setErrors((prev) => ({ ...prev, balcony: "" }));
+      }}
+    >
+      −
+    </button>
+
+    <span>{balcony}</span>
+
+    <button
+      type="button"
+      onClick={() => {
+        setBalcony(balcony + 1);
+        if (balcony + 1 > 0)
+          setErrors((prev) => ({ ...prev, balcony: "" }));
+      }}
+    >
+      +
+    </button>
+  </div>
+
+  {errors.balcony && (
+    <small className="error-text">{errors.balcony}</small>
+  )}
+</div>
+
 
         <div className="form-group">
           <label>Water Supply</label>
@@ -556,41 +682,65 @@ const handleFinishPosting = async () => {
         </div>
       </div>
 
-      {/* === Toggles === */}
-      <div className="amenities-row toggles-row">
-        {[
-          { key: "pet", label: "Pet Allowed*", icon: "🐾" },
-          { key: "gym", label: "Gym*", icon: "🏋️" },
-          { key: "nonVeg", label: "Non-Veg Allowed*", icon: "🍗" },
-          { key: "gated", label: "Gated Security*", icon: "🛡️" },
-        ].map((item) => (
-          <div className="toggle-box" key={item.key}>
-            <div className="toggle-label">
-              <span className="toggle-icon">{item.icon}</span>
-              {item.label}
-            </div>
-            <div className="toggle-buttons">
-              <button
-                className={`btn-toggle ${toggles[item.key] === false ? "active" : ""}`}
-                onClick={() => setToggles({ ...toggles, [item.key]: false })}
-              >
-                No
-              </button>
-              <button
-                className={`btn-toggle ${toggles[item.key] === true ? "active" : ""}`}
-                onClick={() => setToggles({ ...toggles, [item.key]: true })}
-              >
-                Yes
-              </button>
-            </div>
-          </div>
-        ))}
+     {/* === Toggles === */}
+<div className="amenities-row toggles-row">
+  {[
+    { key: "pet", label: "Pet Allowed*", icon: "🐾" },
+    { key: "gym", label: "Gym*", icon: "🏋️" },
+    { key: "nonVeg", label: "Non-Veg Allowed*", icon: "🍗" },
+    { key: "gated", label: "Gated Security*", icon: "🛡️" },
+  ].map((item) => (
+    <div key={item.key} className="toggle-box-wrapper">
+      <div
+        className={`toggle-box ${errors[item.key] ? "error" : ""}`}
+      >
+        <div className="toggle-label">
+          <span className="toggle-icon">{item.icon}</span>
+          {item.label}
+        </div>
+
+        <div className="toggle-buttons">
+          <button
+            type="button"
+            className={`btn-toggle ${
+              toggles[item.key] === false ? "active" : ""
+            }`}
+            onClick={() => {
+              setToggles({ ...toggles, [item.key]: false });
+              setErrors((prev) => ({ ...prev, [item.key]: "" }));
+            }}
+          >
+            No
+          </button>
+
+          <button
+            type="button"
+            className={`btn-toggle ${
+              toggles[item.key] === true ? "active" : ""
+            }`}
+            onClick={() => {
+              setToggles({ ...toggles, [item.key]: true });
+              setErrors((prev) => ({ ...prev, [item.key]: "" }));
+            }}
+          >
+            Yes
+          </button>
+        </div>
       </div>
+
+      {errors[item.key] && (
+        <small className="error-text">{errors[item.key]}</small>
+      )}
+    </div>
+  ))}
+</div>
+
+
 
       {/* === Who shows property & condition === */}
       <div className="amenities-row">
         <div className="form-group">
-          <label>Who will show the property?*</label>
+          <label>Who will show the property?</label>
           <select>
             <option>I will show</option>
             <option>Tenant will show</option>
@@ -658,9 +808,10 @@ const handleFinishPosting = async () => {
         <button type="button" className="back-btn" onClick={() => setCurrentStep(2)}>
           Back
         </button>
-        <button type="button" className="save-btn" onClick={() => setCurrentStep(4)}>
-          Save & Continue
-        </button>
+        <button type="button" className="save-btn" onClick={() => handleNextStep(3)}>
+  Save & Continue
+</button>
+
       </div>
     </div>
   </>
@@ -802,13 +953,10 @@ const handleFinishPosting = async () => {
         >
           Back
         </button>
-        <button
-          type="button"
-          className="save-btn"
-          onClick={() => setCurrentStep(5)}
-        >
-          Save & Continue
-        </button>
+       <button type="button" className="save-btn" onClick={() => handleNextStep(4)}>
+  Save & Continue
+</button>
+
       </div>
     </form>
   </>
