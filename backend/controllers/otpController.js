@@ -16,7 +16,7 @@ export const sendOtp = (req, res) => {
   const otp = generateOtp();
   otpStore.set(phone, { otp, expiresAt: Date.now() + OTP_EXPIRY_MS });
 
-  console.log(`📲 OTP for ${phone}: ${otp}`);
+  console.log(` OTP for ${phone}: ${otp}`);
   res.json({ message: "OTP sent successfully (dummy)", otp });
 };
 
