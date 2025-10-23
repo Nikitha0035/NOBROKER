@@ -1,10 +1,7 @@
 import Property from "../models/Property.js";
 import nodemailer from "nodemailer";
-import User from "../models/User.js"; // 👈 or Driver.js depending on your actual file name
+import User from "../models/User.js"; 
 
-/* ============================================================
-   ✅ Create New Property + Send Confirmation Email
-============================================================ */
 export const createProperty = async (req, res) => {
   try {
     const ownerId = req.user?.phone;
@@ -48,13 +45,12 @@ export const createProperty = async (req, res) => {
 
     await newProperty.save();
 
-    // 🔍 Find logged-in user’s email from DB (based on phone)
     const user = await User.findOne({ phone: ownerId });
 
     const recipientEmail = user?.email;
 
     if (recipientEmail) {
-      // ✉️ Set up Gmail transporter
+      // Set up Gmail transporter
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -66,9 +62,9 @@ export const createProperty = async (req, res) => {
       const mailOptions = {
         from: `"NoBroker Team" <${process.env.EMAIL_USER}>`,
         to: recipientEmail, 
-        subject: "✅ Property Posted Successfully on NoBroker",
+        subject: "Property Posted Successfully on NoBroker",
         html: `
-          <h2>Your Property Has Been Posted Successfully 🎉</h2>
+          <h2>Your Property Has Been Posted Successfully </h2>
           <p>Dear ${user.name || "Owner"},</p>
           <p>Here are your property details:</p>
           <ul>
