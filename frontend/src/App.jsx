@@ -55,10 +55,10 @@ function AppContent() {
 
   return (
     <>
-      {/* Navbar always visible */}
+ 
       <Navbar />
 
-      {/* City selector modal */}
+
       <CitySelectorModal
         isOpen={isCityModalOpen}
         onClose={handleCloseCityModal}
@@ -66,7 +66,7 @@ function AppContent() {
       />
 
       <Routes>
-        {/* --- Main Pages --- */}
+      
         <Route path="/" element={<HomePage />} />
         <Route path="/owner" element={<OwnerForm />} />
         <Route path="/property-details" element={<PropertyDetails />} />
@@ -84,19 +84,18 @@ function AppContent() {
         <Route path="/click-earn" element={<ClickAndEarn />} />
         <Route path="/pay-rent-online" element={<PayRent />} />
 
-        {/* --- Service Related Pages --- */}
+
         <Route
           path="/service-page"
           element={<ServicePage onOpenCityModal={handleOpenCityModal} />}
         />
         <Route path="/rent-page" element={<RentPage />} />
 
-        {/* --- Specialized Pages --- */}
+
         <Route path="/rental-agreement" element={<RentalAgreementPage />} />
         <Route path="/home-interiors" element={<HomeInteriorsPage />} />
         <Route path="/avoid-brokers" element={<AvoidContent />} />
 
-        {/* --- Extra Service Pages --- */}
         <Route path="/sale-agreement" element={<SaleAgreementPage />} />
         <Route path="/home-loan" element={<HomeLoanPage />} />
         <Route path="/property-legal" element={<PropertyLegalService />} />

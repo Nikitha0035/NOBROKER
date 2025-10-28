@@ -6,7 +6,7 @@ const PropertyLegalServices = () => {
 
   return (
     <div className="sale-agreement-page">
-      {/* ===== SEARCH BAR SECTION (WHITE BACKGROUND) ===== */}
+    
       <section className="search-section">
         <div className="search-container">
           <input
@@ -16,8 +16,6 @@ const PropertyLegalServices = () => {
           />
         </div>
       </section>
-
-      {/* ===== HERO SECTION (PURPLE BACKGROUND) ===== */}
       <section className="hero-section">
         <div className="hero-container">
           {/* LEFT SIDE */}

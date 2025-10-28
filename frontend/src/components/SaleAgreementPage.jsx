@@ -12,9 +12,9 @@ const SaleAgreementPage = () => {
         <div className="sale-bg-section d-flex flex-column justify-content-center">
           <div className="container px-lg-5 px-md-4 px-3">
             <div className="row align-items-start g-5">
-              {/* ===== LEFT SIDE CONTENT ===== */}
+      
               <div className="col-lg-7 col-md-12 text-white">
-                {/* 🔍 Search Bar */}
+            
                 <div className="search-wrapper mb-4">
                   <input
                     type="text"
@@ -23,7 +23,7 @@ const SaleAgreementPage = () => {
                   />
                 </div>
 
-                {/* Title + Subtitle */}
+              
                 <h2 className="fw-bold heading mb-2">
                   Online Sales Agreement in Bangalore
                 </h2>
@@ -31,7 +31,6 @@ const SaleAgreementPage = () => {
                   Benefits of choosing NoBroker Legal Services
                 </p>
 
-                {/* Features */}
                 <div className="feature-list d-flex flex-column gap-3">
                   {[
                     {
@@ -68,7 +67,6 @@ const SaleAgreementPage = () => {
                   ))}
                 </div>
 
-                {/* Refund Banner */}
                 <div className="text-center mt-4">
                   <img
                     src="https://assets.nobroker.in/hs-new/public/SalesAgreement/refundImg.svg"
@@ -78,7 +76,7 @@ const SaleAgreementPage = () => {
                 </div>
               </div>
 
-              {/* ===== RIGHT STICKY FORM ===== */}
+     
               <div className="col-lg-5 col-md-12">
                 <div className="sticky-form bg-white p-4 rounded-4 shadow-sm">
                   <h6 className="fw-bold mb-3">Your Ongoing Services</h6>
@@ -93,7 +91,6 @@ const SaleAgreementPage = () => {
                     </li>
                   </ul>
 
-                  {/* Package 1 */}
                   <div className="package-card border rounded-3 p-3 mb-3">
                     <h6 className="fw-bold mb-2">
                       Buyer Premium Registration Suite
@@ -110,7 +107,6 @@ const SaleAgreementPage = () => {
                     </button>
                   </div>
 
-                  {/* Package 2 */}
                   <div className="package-card border rounded-3 p-3 mb-3 position-relative">
                     <span className="badge bg-light text-danger position-absolute top-0 end-0 mt-2 me-2">
                       Popular

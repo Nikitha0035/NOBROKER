@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Service.css";
 import { useNavigate } from "react-router-dom";
 
-// ✅ Import all images
+
 const builderImg = new URL("../assets/buy/builder.png", import.meta.url).href;
 const saleImg = new URL("../assets/buy/sale.png", import.meta.url).href;
 const loanImg = new URL("../assets/buy/loan.png", import.meta.url).href;
@@ -17,7 +17,6 @@ const rentalImg = new URL("../assets/buy/rental.png", import.meta.url).href;
 const Service = ({ onOpenCityModal }) => {
   const navigate = useNavigate();
 
-  // ✅ handle navigation for top services
   const handleServiceClick = (service) => {
     if (service.text === "Builder Projects") {
       if (onOpenCityModal) {
@@ -41,7 +40,7 @@ const Service = ({ onOpenCityModal }) => {
 
   return (
     <div className="service-section text-center py-5">
-      {/* --- Top Services --- */}
+
       <div className="container mb-5">
         <div className="row justify-content-center g-4 align-items-start">
           {[
@@ -82,7 +81,6 @@ const Service = ({ onOpenCityModal }) => {
         <span className="line"></span>
       </h3>
 
-      {/* --- Bottom Features --- */}
       <div className="container mt-5">
         <div className="row justify-content-center g-4">
           {[
@@ -144,7 +142,6 @@ const Service = ({ onOpenCityModal }) => {
         </div>
       </div>
 
-      {/* --- Floating Chat Button --- */}
       <button className="fab-btn btn btn-danger rounded-circle">
         <i className="bi bi-chat-dots"></i>
       </button>

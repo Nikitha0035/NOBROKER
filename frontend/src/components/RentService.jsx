@@ -7,8 +7,7 @@ import AvoidContent from "./AvoidContent";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Service.css";
 
-// --- Dynamic imports ---
-// RENT
+
 const agreementImg = new URL("../assets/rent/agreement.png", import.meta.url).href;
 const clickEarnImg = new URL("../assets/rent/ClicknEarn.svg", import.meta.url).href;
 const nrisImg = new URL("../assets/rent/nris.png", import.meta.url).href;
@@ -16,7 +15,7 @@ const packerImg = new URL("../assets/rent/packer.png", import.meta.url).href;
 const paintingImg = new URL("../assets/rent/painting.png", import.meta.url).href;
 const payRentImg = new URL("../assets/rent/payRent.png", import.meta.url).href;
 
-// BUY icons reused for bottom features
+
 const avoidImg = new URL("../assets/buy/avoidImg.png", import.meta.url).href;
 const freeImg = new URL("../assets/buy/free.png", import.meta.url).href;
 const shortlistImg = new URL("../assets/buy/shortlist.png", import.meta.url).href;
@@ -26,7 +25,7 @@ const RentService = () => {
   const navigate = useNavigate();
   const [selectedFeature, setSelectedFeature] = useState(null);
 
-  // Top features (Avoid Brokers removed)
+
   const topFeatures = [
     { img: packerImg, text: "Packers & Movers", link: "/packers-movers" },
     { img: payRentImg, text: "Pay Rent Online", link: "/pay-rent-online" },
@@ -36,7 +35,7 @@ const RentService = () => {
     { img: nrisImg, text: "NRIs", link: "/nri-services" },
   ];
 
-  // Bottom features (Avoid Brokers included here)
+
   const bottomFeatures = [
     {
       img: avoidImg,
@@ -60,16 +59,14 @@ const RentService = () => {
     },
   ];
 
-  // Click handler
   const handleFeatureClick = (feature) => {
     if (feature.text === "Avoid Brokers") {
-      setSelectedFeature("Avoid Brokers"); // show AvoidContent full page
+      setSelectedFeature("Avoid Brokers");
     } else if (feature.link) {
       navigate(feature.link);
     }
   };
 
-  // --- Full page render for Avoid Brokers ---
   if (selectedFeature === "Avoid Brokers") {
     return (
       <div className="avoid-full-page">

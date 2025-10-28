@@ -13,7 +13,7 @@ const NoBrokerForNRIs = () => {
   const [expanded, setExpanded] = useState(false);
   return (
     <div className="position-relative">
-      {/* 🔹 Hero Section */}
+   
     <div
   className="position-relative text-white"
   style={{
