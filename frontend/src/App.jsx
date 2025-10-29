@@ -17,7 +17,7 @@ import RentPage from "./components/RentPage";
 import HomeInteriorsPage from "./interiors/HomeInteriorsPage";
 import AvoidContent from "./components/AvoidContent";
 import CitySelectorModal from "./components/CitySelectorModal";
-import PropertyLegalService from "./components/PropertyLegalServices";
+
 import NoBrokerForNRIs from "./components/NoBrokerForNRIs";
 import PackerAndMover from "./components/PakerAndMover";
 import HomePainting from "./components/HomePainting";
@@ -99,7 +99,7 @@ function AppContent() {
         {/* --- Extra Service Pages --- */}
         <Route path="/sale-agreement" element={<SaleAgreementPage />} />
         <Route path="/home-loan" element={<HomeLoanPage />} />
-        <Route path="/property-legal" element={<PropertyLegalService />} />
+        <Route path="/property-legal" element={<SaleAgreementPage />} />
         <Route path="/nri-services" element={<NoBrokerForNRIs />} />
         <Route path="/my-properties" element={<MyProperties />} />
 <Route path="/profile" element={<Profile />} />

@@ -4,6 +4,9 @@ import "./PropertyLegalServices.css";
 const PropertyLegalServices = () => {
   const [activeTab, setActiveTab] = useState("packages");
 
+
+
+
   return (
     <div className="sale-agreement-page">
       {/* ===== SEARCH BAR SECTION (WHITE BACKGROUND) ===== */}
