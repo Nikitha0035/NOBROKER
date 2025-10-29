@@ -39,7 +39,7 @@ const Profile = () => {
       localStorage.setItem("user", JSON.stringify(res.data.user));
       setUser(res.data.user);
       setSelectedImage(null);
-      alert("Profile photo updated successfully!");
+      //alert("Profile photo updated successfully!");
       window.dispatchEvent(new Event("userUpdated"));
     } catch (err) {
       console.error("Upload error:", err);
@@ -116,10 +116,10 @@ const Profile = () => {
                   selectedImage
                     ? URL.createObjectURL(selectedImage)
                     : user?.photo
-                    ? user.photo.startsWith("http")
-                      ? user.photo
-                      : `http://localhost:5000${user.photo}`
-                    : "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
+                      ? user.photo.startsWith("http")
+                        ? user.photo
+                        : `http://localhost:5000${user.photo}`
+                      : "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
                 }
                 alt="Profile"
                 className="profile-img-preview"

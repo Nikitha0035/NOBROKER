@@ -794,6 +794,7 @@ body {
 /* ===== Social Icons ===== */
 .social-circle {
   width: 38px;
+  cursor: pointer;
   height: 38px;
   border-radius: 50%;
   background-color: #c7d9e7;

@@ -28,7 +28,7 @@ const HomePage = () => {
   const [isCityModalOpen, setIsCityModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ Top cards for each tab
+  //  Top cards for each tab
   const tabTopCards = {
     buy: [
       {
@@ -53,7 +53,7 @@ const HomePage = () => {
     ],
   };
 
-  // ✅ Handle top-card click
+  //  Handle top-card click
   const handleActionClick = (text) => {
     if (text.includes("Rental Agreement")) {
       navigate("/rental-agreement");
@@ -64,19 +64,16 @@ const HomePage = () => {
 
   const handleTabClick = (tab) => setActiveTab(tab);
 
-  // ✅ Open city modal
+  //  Open city modal
   const handleOpenCityModal = () => {
     setIsCityModalOpen(true);
   };
 
-  // ✅ When user selects city
+  //  When user selects city
   const handleCitySelect = (city) => {
     setSelectedCity(city);
     setIsCityModalOpen(false);
   };
-
-
-
 
 
   const [activeTabs, setActiveTabs] = useState("flatsForSale");
@@ -145,41 +142,7 @@ const HomePage = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1117,11 +1080,47 @@ const HomePage = () => {
 
               {/* Social Icons */}
               <div className="d-flex justify-content-center align-items-center gap-4 mb-3">
-                <div className="social-circle"><FaFacebookF /></div>
-                <div className="social-circle"><FaTwitter /></div>
-                <div className="social-circle"><FaInstagram /></div>
-                <div className="social-circle"><FaLinkedinIn /></div>
-                <div className="social-circle"><FaYoutube /></div>
+                <div
+                  className="social-circle"
+                  onClick={() => window.open("https://www.facebook.com/nobrokercom/", "_blank")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <FaFacebookF />
+                </div>
+
+
+                <div
+                  className="social-circle"
+                  onClick={() => window.open("https://twitter.com/nobrokercom", "_blank")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <FaTwitter />
+                </div>
+
+                <div
+                  className="social-circle"
+                  onClick={() => window.open("https://www.instagram.com/nobroker.com_official/", "_blank")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <FaInstagram />
+                </div>
+
+                <div
+                  className="social-circle"
+                  onClick={() => window.open("https://www.linkedin.com/company/nobroker-com/", "_blank")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <FaLinkedinIn />
+                </div>
+
+                <div
+                  className="social-circle"
+                  onClick={() => window.open("https://www.youtube.com/c/NoBrokercomOfficial", "_blank")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <FaYoutube />
+                </div>
+
               </div>
 
               {/* Copyright */}

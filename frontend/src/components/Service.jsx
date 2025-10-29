@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Service.css";
 import { useNavigate } from "react-router-dom";
 
-// ✅ Import all images
+//  Import all images
 const builderImg = new URL("../assets/buy/builder.png", import.meta.url).href;
 const saleImg = new URL("../assets/buy/sale.png", import.meta.url).href;
 const loanImg = new URL("../assets/buy/loan.png", import.meta.url).href;
@@ -17,7 +17,7 @@ const rentalImg = new URL("../assets/buy/rental.png", import.meta.url).href;
 const Service = ({ onOpenCityModal }) => {
   const navigate = useNavigate();
 
-  // ✅ handle navigation for top services
+  //  handle navigation for top services
   const handleServiceClick = (service) => {
     if (service.text === "Builder Projects") {
       if (onOpenCityModal) {

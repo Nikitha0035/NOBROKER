@@ -1179,22 +1179,3 @@ textarea {
 .property-main>*:not(:last-child) {
   margin-bottom: 25px;
 }
-
-/* ========== VALIDATION STYLES ========== */
-.error {
-  border: 1px solid red !important;
-  outline: none;
-}
-
-.error-text {
-  color: red;
-  font-size: 13px;
-  margin-top: 4px;
-  display: block;
-}
-
-/* Optional hover/focus enhancement */
-input.error:focus,
-select.error:focus {
-  box-shadow: 0 0 3px rgba(255, 0, 0, 0.5);
-}
