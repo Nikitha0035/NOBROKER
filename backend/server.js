@@ -6,13 +6,10 @@ import otpRoutes from "./routes/otpRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import dotenv from "dotenv";
 import propertyRoutes from "./routes/PropertyRoutes.js";
-<<<<<<< HEAD
 import path from "path";
 
 
-=======
 import bookingRoutes from "./routes/bookingRoutes.js";
->>>>>>> master
 
 dotenv.config();
 
