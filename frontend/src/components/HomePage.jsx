@@ -233,7 +233,7 @@ const HomePage = () => {
             placeholder="Search upto 3 localities or landmarks"
             className="search-input"
           />
-          <button className="search-btn">
+          <button className="search-btn btn-danger">
             <FiSearch className="search-icon" /> Search
           </button>
         </div>

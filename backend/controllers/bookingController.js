@@ -60,7 +60,7 @@ export const updateSlot = async (req, res) => {
 
 
         // Send confirmation email to the user 
-        // Now that the booking is updated, send an email to the user
+
         const subject = "Booking Slot Updated";
         const text = `Hello ${booking.name},\n\nYour booking has been updated with the following details:\n\n
                       City: ${booking.city}\nRole: ${booking.role}\nSelected Date: ${new Date(booking.selectedDate).toLocaleDateString()}\n

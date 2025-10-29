@@ -167,6 +167,7 @@ textarea {
   padding: 10px 12px;
   font-size: 14px;
   color: #444;
+  background-color: transparent;
   outline: none;
   transition: 0.2s ease;
 }
@@ -310,6 +311,7 @@ textarea {
   background: #666;
   color: #fff;
 }
+
 .back-btn:hover {
   background: #555;
 }
@@ -318,6 +320,7 @@ textarea {
   background: #ff5a5f;
   color: #fff;
 }
+
 .save-btn:hover {
   background: #e24b50;
 }
@@ -326,6 +329,7 @@ textarea {
   background: #ff5a5f;
   color: #fff;
 }
+
 .finish-btn:hover {
   background: #e24b50;
 }
@@ -347,7 +351,7 @@ textarea {
   max-height: calc(100vh - 130px);
   overflow-y: auto;
 } */
- .property-right {
+.property-right {
   flex: 0 0 230px;
   background: #fff;
   border: 1px solid #e6e6e6;
@@ -359,6 +363,7 @@ textarea {
   top: 100px;
   height: stretch;
 }
+
 /* =========================================================
    ✅ Amenities Yes/No Button Styling (Exact NoBroker Look)
    ========================================================= */
@@ -414,25 +419,31 @@ textarea {
     align-items: center;
     padding: 30px 20px;
   }
+
   .property-sidebar,
   .property-right {
     width: 100%;
     position: static;
   }
+
   .property-main {
     width: 100%;
     padding: 35px 25px;
   }
+
   .amenities-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .form-buttons {
     flex-direction: column;
   }
+
   .form-buttons button {
     width: 100%;
   }
 }
+
 /* =========================================================
    🎨 Additional Button Styles for Amenities, Gallery & Schedule
    ========================================================= */
@@ -550,6 +561,7 @@ textarea {
 .divider::before {
   left: 0;
 }
+
 .divider::after {
   right: 0;
 }
@@ -644,6 +656,7 @@ textarea {
   font-size: 12px;
   color: #777;
 }
+
 /* =========================================================
    📸 Gallery Buttons & Upload Phone Styling (Exact NoBroker Look)
    ========================================================= */
@@ -758,6 +771,7 @@ textarea {
   margin: 40px 0;
   position: relative;
 }
+
 .divider::before,
 .divider::after {
   content: "";
@@ -767,8 +781,15 @@ textarea {
   height: 1px;
   background: #ddd;
 }
-.divider::before { left: 0; }
-.divider::after { right: 0; }
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
 .divider span {
   background: #fff;
   padding: 0 10px;
@@ -784,11 +805,13 @@ textarea {
   text-align: center;
   margin-bottom: 20px;
 }
+
 .contact-cards {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
+
 .contact-card {
   display: flex;
   align-items: center;
@@ -799,13 +822,16 @@ textarea {
   background: #fafafa;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
+
 .contact-card span {
   font-size: 22px;
 }
+
 .contact-card h5 {
   color: #00a885;
   margin: 0;
 }
+
 /* =========================================================
    🕒 Schedule Page Styling (Exact NoBroker Replica)
    ========================================================= */
@@ -1009,6 +1035,7 @@ textarea {
 .finish-btn:hover {
   background-color: #e24b50;
 }
+
 /* ===== PG/Hostel Room Selection ===== */
 
 .room-grid {
@@ -1079,15 +1106,18 @@ textarea {
   transform: scale(1.2);
   accent-color: #00a884;
 }
+
 /* =========================================================
    🎯 UNIFORM CONTAINER SIZE FIX (Match all 6 steps)
    ========================================================= */
 
 /* Keep all form sections equal in width and spacing */
 .property-main {
-  max-width: 820px;   /* same width as other steps */
+  max-width: 820px;
+  /* same width as other steps */
   margin: 0 auto;
-  padding: 45px 60px; /* reduced padding for consistent layout */
+  padding: 45px 60px;
+  /* reduced padding for consistent layout */
 }
 
 /* Align headers, forms, and progress bar centrally */
@@ -1099,7 +1129,8 @@ textarea {
 .schedule-form,
 .locality-form,
 .rental-form {
-  max-width: 700px;   /* ✅ exact center alignment match */
+  max-width: 700px;
+  /* ✅ exact center alignment match */
   margin: 0 auto;
   width: 100%;
 }
@@ -1145,6 +1176,6 @@ textarea {
 }
 
 /* Ensure all sections vertically consistent */
-.property-main > *:not(:last-child) {
+.property-main>*:not(:last-child) {
   margin-bottom: 25px;
 }

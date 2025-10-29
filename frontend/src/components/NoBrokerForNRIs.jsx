@@ -106,7 +106,7 @@ const NoBrokerForNRIs = () => {
       );
 
       if (response.data.success) {
-        alert("Booking slot updated successfully.");
+        // alert("Booking slot updated successfully.");
         setStep(3);
       } else {
         alert("Failed to update booking slot.");
@@ -128,11 +128,11 @@ const NoBrokerForNRIs = () => {
       return;
     }
     setStep(3);
-    setTimeout(() => {
-      setStep(1);
-      setSelectedSlot("");
-      setIsDatePickerOpen(false);
-    }, 3000);
+    // setTimeout(() => {
+    //   setStep(1);
+    //   setSelectedSlot("");
+    //   setIsDatePickerOpen(false);
+    // }, 0);
 
   };
 
