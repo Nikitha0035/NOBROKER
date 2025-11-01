@@ -146,17 +146,17 @@ export const loginUser = async (req, res) => {
 
     if (!user) return res.status(404).json({ error: "No account found with this number." });
 
-    
-res.status(200).json({
-  message: "Login successful",
-  user: {
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    photo: user.photo,
-  },
-});
+
+    res.status(200).json({
+      message: "Login successful",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        photo: user.photo,
+      },
+    });
 
 
   } catch (err) {
@@ -173,6 +173,9 @@ const sendWelcomeEmail = async (user) => {
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
       },
     });
 

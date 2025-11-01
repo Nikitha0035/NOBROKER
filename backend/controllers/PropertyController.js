@@ -1,6 +1,6 @@
 import Property from "../models/Property.js";
 import nodemailer from "nodemailer";
-import User from "../models/User.js"; 
+import User from "../models/User.js";
 
 export const createProperty = async (req, res) => {
   try {
@@ -57,11 +57,14 @@ export const createProperty = async (req, res) => {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS,
         },
+        tls: {
+          rejectUnauthorized: false,
+        },
       });
 
       const mailOptions = {
         from: `"NoBroker Team" <${process.env.EMAIL_USER}>`,
-        to: recipientEmail, 
+        to: recipientEmail,
         subject: "Property Posted Successfully on NoBroker",
         html: `
           <h2>Your Property Has Been Posted Successfully </h2>
@@ -107,7 +110,7 @@ export const getAllProperties = async (req, res) => {
     const { ownerId } = req.query;
 
     let query = {};
-    if (ownerId) query.ownerId = ownerId; 
+    if (ownerId) query.ownerId = ownerId;
 
     const properties = await Property.find(query).sort({ createdAt: -1 });
 
